@@ -1,0 +1,258 @@
+binary_sensor.family_room:
+  friendly_name: Family Room Door
+binary_sensor.garage:
+  friendly_name: Garage
+binary_sensor.front_door:
+  friendly_name: Front Door
+binary_sensor.pool_room:
+  friendly_name: Pool Room
+binary_sensor.screen_porch:
+  friendly_name: Screen Porch
+binary_sensor.kitchen:
+  friendly_name: Kitchen
+binary_sensor.kitchen_2:
+  friendly_name: Kitchen
+binary_sensor.office:
+  friendly_name: Office
+binary_sensor.basement:
+  friendly_name: Basement
+
+garage_door.garage_overhead:
+  friendly_name: Garage Overhead
+
+##### HIDDEN #####
+group.all_switches_and_lights:
+  friendly_name: All switches and lights
+  hidden: true
+group.mbr_lamps:
+  friendly_name: MBR Lamps
+  hidden: true
+##### HIDDEN #####
+
+group.mobile_devices:
+  friendly_name: Mobile Devices
+
+light.basement_stairs:
+  friendly_name: Stairwell
+  entity_picture: http://www.lindleyhome.com/recessed.png
+light.family_room:
+  friendly_name: Family Room
+  entity_picture: http://www.lindleyhome.com/recessed.png
+light.front_porch:
+  friendly_name: Front Porch
+  entity_picture: http://www.lindleyhome.com/recessed.png
+light.basement_patio:
+  friendly_name: Patio
+  entity_picture: http://www.lindleyhome.com/lamp.png
+light.mbr_redacted_lamp:
+  friendly_name: _redacted_s Lamp
+  entity_picture: http://www.lindleyhome.com/lamp.png
+light.kitchen_landing:
+  friendly_name: Kitchen Landing
+  entity_picture: http://www.lindleyhome.com/recessed.png
+light.living_room_lamp:
+  friendly_name: Living Room Lamp
+  entity_picture: http://www.lindleyhome.com/lamp.png
+light.living_room:
+  friendly_name: Living Room
+  entity_picture: http://www.lindleyhome.com/recessed.png
+light.mbr_landing:
+  friendly_name: Master Landing
+  entity_picture: http://www.lindleyhome.com/recessed.png
+light.office:
+  friendly_name: Office
+  entity_picture: http://www.lindleyhome.com/recessed.png
+light.mbr_redacted_lamp:
+  friendly_name: _redacted_'s Lamp
+  entity_picture: http://www.lindleyhome.com/lamp.png
+light.upstairs_landing:
+  friendly_name: Landing
+  entity_picture: http://www.lindleyhome.com/recessed.png
+
+lock.garage:
+  friendly_name: Garage
+lock.pool_room:
+  friendly_name: Pool Room
+
+media_player.family_room_receiver:
+  friendly_name: Family Room Receiver
+media_player.frplex:
+  friendly_name: Family Room Plex
+media_player.mbrplex:
+  friendly_name: Master Bedroom Plex
+media_player.plex_for_vizio_vizio_sigma_1315uhd:
+  friendly_name: Vizio Plex
+
+scene.dusk_and_dawn:
+  friendly_name: Dusk and dawn lighting
+scene.family_room_tv_time:
+  friendly_name: Watching TV
+  hidden: true
+scene.family_room_nontv_time:
+  friendly_name: Not watching TV
+  hidden: true
+
+script.turn_off_all_lights:
+  friendly_name: Turn all lights off
+script.lock_up:
+  friendly_name: Lock up and close garage
+script.good_night:
+  friendly_name: Good Night
+script.delay_all_off:
+  friendly_name: Turn lights off - in 30 minutes
+  hidden: true
+script.away:
+  friendly_name: Leaving home actions
+  hidden: true
+script.home:
+  friendly_name: Return home actions
+  hidden: true
+script.do_arrival:
+  friendly_name: DO Arrival
+  hidden: true
+script.do_departure:
+  friendly_name: DO Departure
+  hidden: true
+script.family_room_receiver_powered_off:
+  friendly_name: Family Room receiver powered off
+  hidden: true
+script.front_door_opening_at_night:
+  friendly_name: Front door opening at night
+  hidden: true
+script.basement_doors_opening_at_night:
+  friendly_name: Basement doors opening at night
+  hidden: true
+
+sensor.google_travel_time__driving:
+  friendly_name: Time to work
+
+sensor.speedtest_download:
+  friendly_name: Download Speed
+sensor.speedtest_ping:
+  friendly_name: Ping Latency
+sensor.speedtest_upload:
+  friendly_name: Upload Speed
+
+sensor.time__date:
+  friendly_name: Time and Date
+
+sensor.transmission_down_speed:
+  friendly_name: Download Speed
+sensor.transmission_status:
+  friendly_name: Status
+sensor.transmission_up_speed:
+  friendly_name: Upload Speed
+
+sensor.weather_apparent_temperature:
+  friendly_name: Feels Like
+sensor.weather_cloud_coverage:
+  friendly_name: Cloud Coverage
+sensor.weather_dew_point:
+  friendly_name: Dew Point
+sensor.weather_humidity:
+  friendly_name: Humidity
+sensor.weather_icon:
+  friendly_name: Weather
+sensor.weather_nearest_storm_bearing:
+  friendly_name: Storm Bearing
+sensor.weather_nearest_storm_distance:
+  friendly_name: Nearest Storm
+sensor.weather_precip:
+  friendly_name: Precipitation
+sensor.weather_precip_intensity:
+  friendly_name: Intensity
+sensor.weather_precip_probability:
+  friendly_name: Probability
+sensor.weather_pressure:
+  friendly_name: Pressure
+sensor.weather_summary:
+  friendly_name: Summary
+sensor.weather_temperature:
+  friendly_name: Temperature
+sensor.weather_visibility:
+  friendly_name: Visibility
+sensor.weather_wind_bearing:
+  friendly_name: Wind Bearing
+sensor.weather_wind_speed:
+  friendly_name: Wind Speed
+
+sensor.weather_condition:
+  friendly_name: Summary
+sensor.weather_temperature_2:
+  friendly_name: Temperature
+sensor.weather_wind_speed_2:
+  friendly_name: Wind Speed
+sensor.weather_humidity_2:
+  friendly_name: Humidity
+sensor.weather_presssure_2:
+  friendly_name: Pressure
+sensor.weather_cloud_coverage_2:
+  friendly_name: Cloud Coverage
+sensor.weather_rain:
+  friendly_name: Rain?
+sensor.weather_snow:
+  friendly_name: Snow?
+
+sun.sun:
+  friendly_name: Sun
+
+sensor.basement_temperature:
+  friendly_name: Current Temp
+sensor.basement_target:
+  friendly_name: Target
+sensor.basement_humidity:
+  friendly_name: Humidity
+sensor.basement_mode:
+  friendly_name: Mode
+
+sensor.main_floor_temperature:
+  friendly_name: Current Temp
+sensor.main_floor_target:
+  friendly_name: Target
+sensor.main_floor_humidity:
+  friendly_name: Humidity
+sensor.main_floor_mode:
+  friendly_name: Mode
+
+sensor.upstairs_temperature:
+  friendly_name: Current Temp
+sensor.upstairs_target:
+  friendly_name: Target
+sensor.upstairs_humidity:
+  friendly_name: Humidity
+
+sensor.living_room_co_status:
+  friendly_name: CO Status
+sensor.living_room_smoke_status:
+  friendly_name: Smoke Status
+
+switch.keurig:
+  friendly_name: Keurig
+
+switch.kitchen_cabinets:
+  friendly_name: Kitchen Cabinets
+  entity_picture: http://www.lindleyhome.com/recessed.png
+switch.kitchen:
+  friendly_name: Kitchen
+  entity_picture: http://www.lindleyhome.com/recessed.png
+
+switch.transmission:
+  friendly_name: Bandwidth Regulator
+
+switch.basement:
+  friendly_name: Basement
+switch.main_floor:
+  friendly_name: Main Floor
+
+thermostat.upstairs:
+  friendly_name: Thermostat Control
+  entity_picture: https://d3rnbxvnd0hlox.cloudfront.net/images/channels/811416297/icons/large.png
+thermostat.basement:
+  friendly_name: Thermostat Control
+  entity_picture: https://d3rnbxvnd0hlox.cloudfront.net/images/channels/811416297/icons/large.png
+thermostat.main_floor:
+  friendly_name: Thermostat Control
+  entity_picture: https://d3rnbxvnd0hlox.cloudfront.net/images/channels/811416297/icons/small.png
+
+updater.updater:
+  friendly_name: Update Available

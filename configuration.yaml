@@ -1,0 +1,188 @@
+##############################################################
+##                  General Configurations                  ##
+##############################################################
+homeassistant:
+  name: Home
+  latitude: _redacted_
+  longitude: _redacted_
+  temperature_unit: F
+  time_zone: America/New_York
+  customize: !include customize.yaml
+
+http:
+  api_password: _redacted_
+
+updater:
+frontend:
+discovery:
+sun:
+conversation:
+history:
+logbook:
+logger: !include logger.yaml
+group: !include group.yaml
+automation: !include automation.yaml
+script: !include script.yaml
+scene: !include scene.yaml
+
+input_boolean: !include input_boolean.yaml
+
+##############################################################
+##                  Integrated Components                   ##
+##############################################################
+
+wemo:
+  static:
+    - _ip_address_
+
+nest:
+  username: _redacted_
+  password: _redacted_
+
+wink:
+  access_token: _redacted_
+
+ifttt:
+  key: _redacted_
+
+device_tracker:
+  platform: _redacted_
+  username: _redacted_
+  password: _redacted_
+  track_new_devices: no
+  interval_seconds: 12
+  consider_home: 60
+
+notify:
+  platform: googlevoice
+  username: _redacted_
+  password: _redacted_
+
+sensor:
+  - platform: nest
+    monitored_conditions:
+      - 'temperature'
+      - 'target'
+      - 'humidity'
+      - 'mode'
+      - 'last_ip'
+      - 'local_ip'
+      - 'last_connection'
+      - 'weather_condition'
+      - 'weather_temperature'
+      - 'weather_humidity'
+      - 'wind_speed'
+      - 'wind_direction'
+      - 'battery_level'
+      - 'co_status'
+      - 'smoke_status'
+  - platform: google_travel_time
+    api_key: _redacted_
+    origin: _redacted_
+    destination: _redacted_
+    options:
+      mode: 'driving'
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+  - platform: forecast
+    api_key: _redacted_
+    monitored_conditions:
+      - summary
+      - precip_type
+      - precip_intensity
+      - precip_probability
+      - temperature
+      - icon
+      - nearest_storm_distance
+      - nearest_storm_bearing
+      - apparent_temperature
+      - dew_point
+      - wind_speed
+      - wind_bearing
+      - cloud_cover
+      - humidity
+      - pressure
+      - visibility
+  - platform: speedtest
+    minute:
+      - 00
+      - 05
+      - 10
+      - 15
+      - 20
+      - 25
+      - 30
+      - 35
+      - 40
+      - 45
+      - 50
+      - 55
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+  - platform: transmission
+    host: _redacted_
+    port: 9091
+    name: Transmission
+    username: _redacted_
+    password: _redacted_
+    monitored_variables:
+      - 'current_status'
+      - 'download_speed'
+      - 'upload_speed'
+  - platform: openweathermap
+    api_key: _redacted_
+    monitored_conditions:
+      - weather
+      - temperature
+      - wind_speed
+      - humidity
+      - pressure
+      - clouds
+      - rain
+      - snow
+
+thermostat:
+  platform: nest
+
+media_player:
+  - platform: plex
+  - platform: yamaha
+    name: 'Family Room Receiver'
+
+
+switch:
+  platform: transmission
+  host: _redacted_
+  port: 9091
+  name: Transmission
+  username: _redacted_
+  password: _redacted_
+
+influxdb:
+  host: _redacted_
+  port: 8086
+  database: _redacted_
+  username: _redacted_
+  password: _redacted_
+
+zone:
+  name: _redacted_ Work
+  latitude: _redacted_
+  longitude: _redacted_
+  radius: 400
+
+zone 2:
+  name: _redacted_ Work
+  latitude: _redacted_
+  longitude: _redacted_
+  radius: 100
+
+zone 3:
+  name: Home
+  latitude: _redacted_
+  longitude: _redacted_
+  radius: 500

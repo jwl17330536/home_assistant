@@ -1,0 +1,110 @@
+turn_off_all_lights:
+  alias: "Script - Turn off all lights and switches."
+  sequence:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: group.all_switches_and_lights
+
+lock_up:
+  alias: "Script - Lock up and close garage"
+  sequence:
+    - service: lock.lock
+      data:
+        entity_id: group.all_locks
+    - service: garage_door.close
+      data:
+        entity_id: garage_door.garage_overhead
+
+good_night:
+  alias: "Script - Run scripts: turn_off_all_lights and lock_up."
+  sequence:
+    - service: script.turn_off_all_lights
+    - service: script.lock_up
+
+delay_all_off:
+  alias: "Script - Wait 30 minutes then run script: turn_off_all_lights."
+  sequence:
+    - delay: 00:30:00
+    - service: script.turn_off_all_lights
+
+away:
+  alias: "Script - Set Nest to AWAY then run script: turn_off_all_lights."
+  sequence:
+    - service: thermostat.set_away_mode
+      data:
+        entity_id: thermostat.main_floor
+        away_mode: true
+    - service: script.turn_off_all_lights
+
+home:
+  alias: "Script - Set Nest to HOME."
+  sequence:
+    - service: thermostat.set_away_mode
+      data:
+        entity_id: thermostat.main_floor
+        away_mode: false
+
+do_arrival:
+  alias: "Script - DO arrival: Disable location based actions and run script: home."
+  sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: input_boolean.location_disable
+    - service: homeassistant.turn_on
+      data: 
+        entity_id: script.home
+
+do_departure:
+  alias: "Script - DO departure: Enable location based actions."
+  sequence:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: input_boolean.location_disable
+
+family_room_receiver_powered_off:
+  alias: "Script - Activate scene: family_room_nontv_time, wait 2 minutes, turn off Family Room and Stairway lights."
+  sequence:
+    - service: homeassistant.turn_on
+      data: 
+        entity_id: scene.family_room_nontv_time
+    - delay: 00:02:00
+    - service: homeassistant.turn_off
+      data:
+        entity_id: light.family_room
+    - service: homeassistant.turn_off
+      data:
+        entity_id: light.basement_stairs
+
+basement_doors_opening_at_night:
+  alias: "Script - Turn on patio light for 15 minutes."
+  sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: light.basement_patio
+        brightness: '250'
+    - delay: 00:14:00
+    - service: homeassistant.turn_on
+      data:
+        entity_id: light.basement_patio
+        brightness: '1'
+    - delay: 00:01:00
+    - service: homeassistant.turn_off
+      data:
+        entity_id: light.basement_patio
+
+front_door_opening_at_night:
+  alias: "Script - Turn on front porch light for 15 minutes."
+  sequence:
+    - service: homeassistant.turn_on
+      data:
+        entity_id: light.front_porch
+        brightness: '250'
+    - delay: 00:14:00
+    - service: homeassistant.turn_on
+      data:
+        entity_id: light.front_porch
+        brightness: '1'
+    - delay: 00:01:00
+    - service: homeassistant.turn_off
+      data:
+        entity_id: light.front_porch   

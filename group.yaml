@@ -1,0 +1,215 @@
+##### HIDDEN GROUPS #####
+all switches and lights:
+    - group.all_lights
+    - switch.kitchen
+    - switch.kitchen_cabinets
+mbr_lamps:
+    - light.mbr_redacted_lamp
+    - light.mbr_redacted_lamp
+
+##### VIEWABLE GROUPS #####
+
+Main Floor:
+  entities:
+    - thermostat.main_floor
+    - switch.kitchen
+    - switch.kitchen_cabinets
+    - light.front_porch
+    - light.kitchen_landing
+    - light.living_room
+    - light.living_room_lamp
+    - light.mbr_landing
+    - light.mbr_redacted_lamp
+    - light.mbr_redacted_lamp
+Basement:
+  entities:
+    - thermostat.basement
+    - light.family_room
+    - light.basement_stairs
+    - light.basement_patio
+Upstairs:
+  entities:
+    - thermostat.upstairs
+    - light.upstairs_landing
+    - light.office
+Garage Overhead:
+  entities:
+    - garage_door.garage_overhead
+Locks:
+  entities:
+    - lock.garage
+    - lock.pool_room
+Appliances:
+  entities:
+    - switch.keurig
+
+
+Mobile Devices:
+  entities:
+    - device_tracker._redacted_
+    - device_tracker._redacted_
+Travel Times:
+  entities:
+    - sensor.google_travel_time__driving
+Doors:
+  entities:
+    - binary_sensor.family_room
+    - binary_sensor.garage
+    - binary_sensor.front_door
+    - binary_sensor.pool_room
+    - binary_sensor.screen_porch
+    - binary_sensor.basement
+    - binary_sensor.kitchen_2
+Motion Sensors:
+  entities:
+    - binary_sensor.kitchen
+    - binary_sensor.office
+Sirens:
+  entities:
+    - switch.basement
+    - switch.main_floor
+    
+Overides:
+  entities:
+    - input_boolean.location_disable
+    - input_boolean.door_notification_disable
+    - input_boolean.light_auto_shutoff_disable
+On Demand:
+  entities:
+    - scene.dusk_and_dawn
+    - script.lock_up
+    - script.turn_off_all_lights
+    - script.good_night
+Speedtest:
+  entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_upload
+    - sensor.speedtest_download
+Transmission:
+  entities:
+    - sensor.transmission_status
+    - sensor.transmission_down_speed
+    - sensor.transmission_up_speed
+    - switch.transmission
+Media Players:
+  entities:
+    - media_player.family_room_receiver 
+    - media_player.frplex
+    - media_player.mbrplex
+    - media_player.plex_for_vizio_vizio_sigma_1315uhd
+
+Basement Nest Thermostat:
+  entities:
+    - thermostat.basement
+    - sensor.basement_temperature
+    - sensor.basement_target
+    - sensor.basement_mode
+    - sensor.basement_humidity
+Main Floor Nest Thermostat:
+  entities:
+    - thermostat.main_floor
+    - sensor.main_floor_temperature
+    - sensor.main_floor_target
+    - sensor.main_floor_mode
+    - sensor.main_floor_humidity
+Upstairs Nest Thermostat:
+  entities:
+    - thermostat.upstairs
+    - sensor.upstairs_temperature
+    - sensor.upstairs_target
+    - sensor.upstairs_mode
+    - sensor.upstairs_humidity
+Living Room Nest Protect:
+  entities:
+    - sensor.living_room_co_status
+    - sensor.living_room_smoke_status
+
+Time and Date:
+  entities:
+    - sensor.time
+    - sensor.date
+    - sun.sun
+Summary:
+  entities:
+    - sensor.weather_icon
+    - sensor.weather_summary
+    - sensor.weather_temperature
+    - sensor.weather_apparent_temperature
+    - sensor.weather_dew_point
+    - sensor.weather_humidity
+Storms:
+  entities:
+    - sensor.weather_nearest_storm_distance
+    - sensor.weather_nearest_storm_bearing
+    - sensor.weather_pressure
+    - sensor.weather_cloud_coverage
+    - sensor.weather_visibility
+Wind:
+  entities:
+    - sensor.weather_wind_speed
+    - sensor.weather_wind_bearing
+Precipitation:
+  entities:
+    - sensor.weather_precip
+    - sensor.weather_precip_probability
+    - sensor.weather_precip_intensity
+
+Open Weather Map:
+  entities:
+    - sensor.weather_condition
+    - sensor.weather_temperature_2
+    - sensor.weather_wind_speed_2
+    - sensor.weather_humidity_2
+    - sensor.weather_presssure_2
+    - sensor.weather_cloud_coverage_2
+    - sensor.weather_rain
+    - sensor.weather_snow
+
+##### DEFAULT VIEWS #####
+default_view:
+  view: yes
+  entities:
+    - group.basement
+    - group.main_floor
+    - group.upstairs
+    - group.garage
+    - group.locks
+    - group.garage_overhead
+    - group.appliances
+
+
+#####TABBED VIEWS #####
+Tools:
+  view: yes
+  entities: 
+    - updater.updater
+    - group.travel_times
+    - group.transmission
+    - group.speedtest
+    - group.mobile_devices
+    - group.on_demand
+    - group.overides
+    - group.sirens
+    - group.doors
+    - group.motion_sensors  
+MediaCenter:
+  view: yes
+  entities:
+    - group.media_players
+
+Weather At Home:
+  view: yes
+  entities:
+    - group.time_and_date
+    - group.summary
+    - group.precipitation
+    - group.storms
+    - group.open_weather_map
+
+Nest:
+  view: yes
+  entities:
+    - group.basement_nest_thermostat
+    - group.main_floor_nest_thermostat
+    - group.upstairs_nest_thermostat
+    - group.living_room_nest_protect

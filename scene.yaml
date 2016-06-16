@@ -1,0 +1,30 @@
+
+- name: Dusk And Dawn
+  entities:
+    light.front_porch:
+      state: 'on'
+      brightness: '1'
+    light.kitchen_landing:
+      state: 'on'
+      brightness: '5'
+    light.mbr_landing:
+      state: 'on'
+      brightness: '5'
+
+- name: Family Room tv time
+  entities:
+    light.family_room:
+      state: 'on'
+      brightness: '15'
+    light.basement_stairs:
+      state: 'on'
+      brightness: '30'
+
+- name: Family Room nontv time
+  entities:
+    light.family_room:
+      state: 'on'
+      brightness: '75'
+    light.basement_stairs:
+      state: 'on'
+      brightness: '100'

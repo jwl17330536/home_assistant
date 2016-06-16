@@ -1,0 +1,10 @@
+
+location_disable:
+  name: override location actions
+  initial: off
+light_auto_shutoff_disable:
+  name: override lights shutting off
+  initial: off
+door_notification_disable:
+  name: override door notifications
+  initial: off

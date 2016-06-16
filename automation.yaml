@@ -1,0 +1,594 @@
+        ######################################################
+        #####         Time Specific Automations	        ######
+        ######################################################
+
+
+# Working 6/11/16
+- alias: Action - Locking doors and closing the garage for the night
+  trigger:
+    platform: time
+    hours: 21
+    minutes: 59
+    seconds: 00
+  action:
+    service: script.turn_on
+    entity_id: script.lock_up
+
+
+# Working 6/11/16
+- alias: Action - Turning off any lights if we think everyone is asleep
+  trigger:
+    platform: time
+    hours: 21
+    minutes: 59
+    seconds: 51
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: media_player.family_room_receiver
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.light_auto_shutoff_disable
+        state: 'off'
+  action:
+    service: script.turn_on
+    entity_id: script.turn_off_all_lights
+
+
+# Working 6/11/16
+- alias: Action - Light has been detected on. Timer is set to turn OFF in 30 minutes
+  trigger:
+    platform: state
+    entity_id: group.all_switches_and_lights
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: time
+        after: '22:01:00'
+      - condition: time
+        before: '04:30:00'
+  action:
+    service: script.turn_on
+    entity_id: script.delay_all_off
+
+
+# Working 6/11/16
+- alias: Action - All lights are now off.  Turning off timer
+  trigger:
+    platform: state
+    entity_id: group.all_switches_and_lights
+    to: 'off'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: script.delay_all_off
+        state: 'on'
+      - condition: or
+        conditions:
+          - condition: time
+            after: '22:01:00'
+          - condition: time
+            before: '04:30:00'
+  action:
+    service: script.turn_off
+    entity_id: script.delay_all_off
+
+
+# Working 6/11/16
+- alias: Action - Reset all overide toggles
+  trigger:
+    platform: time
+    hours: '03'
+    minutes: '00'
+    seconds: '00'
+  action:
+    service: homeassistant.turn_off
+    entity_id: group.overides
+
+
+# Working 6/11/16
+- alias: Action - _redacted_ is waking up. Turning ON some lights
+  trigger:
+    platform: time
+    hours: 05
+    minutes: 00
+    seconds: 00
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+      - condition: state
+        entity_id: device_tracker._redacted_
+        state: 'home'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+  action:
+    service: homeassistant.turn_on
+    entity_id: scene.dusk_and_dawn
+
+
+        ######################################################
+        #####             Sunset Automations	        ######
+        ######################################################
+
+
+# Working 6/11/16
+- alias: Action - Sun is setting and someone is watching TV
+  trigger: 
+    platform: sun
+    event: sunset
+    offset: '-00:20:00'
+  condition:
+    - condition: state
+      entity_id: media_player.family_room_receiver
+      state: 'on'
+  action:
+    service: scene.turn_on
+    entity_id: scene.family_room_tv_time
+
+
+# Working 6/11/16
+- alias: Action - Someone is home and the sun has set. Turning ON some lights
+  trigger:
+    platform: sun
+    event: sunset
+    offset: '-00:15:00'
+  condition:
+    - condition: state
+      entity_id: group.mobile_devices
+      state: 'home'
+  action:
+    service: scene.turn_on
+    entity_id: scene.dusk_and_dawn
+
+
+        ######################################################
+        #####      Sun Below Horizon Automations        ######
+        ######################################################
+
+
+# Working 6/11/16
+- alias: Notify - Sun is below the horizon and the garage overhead is OPEN
+  trigger:
+    platform: time
+    minutes: '/10'
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: garage_door.garage_overhead
+        state: 'open'
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+      - condition: state
+        entity_id: input_boolean.door_notification_disable
+        state: 'off'
+  action:
+    service: ifttt.trigger
+    data: {"event":"garage_open"}
+
+
+# Working 6/11/16
+- alias: Notify - Sun is below the horizon and the garage door is UNLOCKED
+  trigger:
+    platform: time
+    minutes: '/10'
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: lock.garage
+        state: 'unlocked'
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+      - condition: state
+        entity_id: input_boolean.door_notification_disable
+        state: 'off'
+  action:
+    service: ifttt.trigger
+    data: {"event":"garage_unlocked"}
+
+
+# Working 6/11/16
+- alias: Notify - Sun is below the horizon and the pool room door is UNLOCKED
+  trigger:
+    platform: time
+    minutes: '/10'
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: lock.pool_room
+        state: 'unlocked'
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+      - condition: state
+        entity_id: input_boolean.door_notification_disable
+        state: 'off'
+  action:
+    service: ifttt.trigger
+    data: {"event":"pool_room_unlocked"}
+
+
+# Working 6/11/16
+- alias: Action - Family Room receiver powered ON
+  trigger:
+    platform: state
+    entity_id: media_player.family_room_receiver
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+  action:
+    service: scene.turn_on
+    entity_id: scene.family_room_tv_time
+
+
+# Working 6/11/16
+- alias: Action - Family Room Plex media is PAUSED/STOPPED
+  trigger:
+    platform: state
+    entity_id: media_player.familyroom
+    from: 'playing'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+  action:
+    service: scene.turn_on
+    entity_id: scene.family_room_nontv_time
+
+
+# Working 6/11/16
+- alias: "Action - Family Room Receiver has been powered OFF."
+  trigger:
+    platform: state
+    entity_id: media_player.family_room_receiver
+    to: 'off'
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+  action:
+    service: script.turn_on
+    entity_id: script.family_room_receiver_powered_off
+
+
+# Working 6/11/16
+- alias: "Action - Someone came home after sunset. Turning on some lighting."
+  trigger: 
+    platform: state
+    entity_id: garage_door.garage_overhead
+    to: 'open'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: group.mobile_devices
+        state: 'not_home'
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+  action:
+    service: scene.turn_on
+    entity_id: scene.dusk_and_dawn
+
+
+# Working 6/11/16
+- alias: "Action - Family Room or Basement door opened after dark. Turning on Patio light."
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.family_room
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.pool_room
+      to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: light.basement_patio
+      state: 'off'
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id: script.basement_doors_opening_at_night
+      state: 'off'
+  action:
+   service: script.turn_on
+   entity_id: script.basement_doors_opening_at_night
+
+
+# Working 6/11/16
+- alias: "Action - Front door opened after dark. Turning on front porch light."
+  trigger:
+    platform: state
+    entity_id: binary_sensor.front_door
+    to: 'on'
+  condition:
+    condition: and
+    conditions:
+    - condition: state
+      entity_id: light.front_door
+      state: 'off'
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: state
+      entity_id: script.front_door_opening_at_night
+      state: 'off'
+  action:
+   service: script.turn_on
+   entity_id: script.front_door_opening_at_night
+
+
+        ######################################################
+        #####            Sunrise Automations            ######
+        ######################################################
+
+
+# Working 6/11/16
+- alias: "Action - Sun has risen. Turning OFF any lights that are on."
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+    service: script.turn_on
+    entity_id: script.turn_off_all_lights
+
+
+        ######################################################
+        #####      Sun Above Horizon Automations        ######
+        ######################################################
+
+
+# Needs validated
+- alias: "Action - Colder outside than indoor temp. Opening the Garage door."
+  trigger:
+    platform: time
+    minutes: '/5'
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: '00:05:30'
+    - condition: time
+      before: '20:00:00'
+    - condition: numeric_state
+      entity_id: sensor.weather_temperature
+      below: 70
+    - condition: state
+      entity_id: sesnor.weather_rain
+      state: 'not raining'
+    - condition: state
+      entity_id: sensor.upstairs_mode
+      state: 'cool'
+    - condition: state
+      entity_id: garage_door.garage_overhead
+      state: 'closed'
+    - condition: numeric_state
+      entity_id: sensor.upstairs_temperature
+      above: 64
+    - condition: state
+      entity_id: group.mobile_devices
+      state: 'home'
+  action:
+    service: garage_door.open
+    entity_id: garage_door.garage_overhead
+
+
+# Needs validated
+- alias: "Action - It is warmer outside than what we want indoors. Closing the Garage door."
+  trigger:
+    platform: time
+    minutes: '/5'
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: '00:05:30'
+    - condition: time
+      before: '20:00:00'
+    - condition: numeric_state
+      entity_id: sensor.weather_temperature
+      above: 72
+    - condition: state
+      entity_id: sensor.upstairs_mode
+      state: 'cool'
+    - condition: state
+      entity_id: garage_door.garage_overhead
+      state: 'open'
+    - condition: numeric_state
+      entity_id: sensor.upstairs_target
+      below: 72.5
+  action:
+    service: garage_door.close
+    entity_id: garage_door.garage_overhead
+
+
+# Needs validated
+- alias: "Action - Warmer outside than indoor temp. Opening the Garage door."
+  trigger:
+    platform: time
+    minutes: '/5'
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: '00:05:30'
+    - condition: time
+      before: '20:00:00'
+    - condition: numeric_state
+      entity_id: sensor.weather_temperature
+      above: 72
+    - condition: state
+      entity_id: sesnor.weather_rain
+      state: 'not raining'
+    - condition: state
+      entity_id: sensor.upstairs_mode
+      state: 'heat'
+    - condition: state
+      entity_id: garage_door.garage_overhead
+      state: 'closed'
+    - condition: numeric_state
+      entity_id: sensor.upstairs_temperature
+      below: 72 
+    - condition: state
+      entity_id: group.mobile_devices
+      state: 'home'
+  action:
+    service: garage_door.open
+    entity_id: garage_door.garage_overhead
+
+
+# Needs validated
+- alias: "Action - It is colder outside than what we want indoors. Closing the Garage door."
+  trigger:
+    platform: time
+    minutes: '/5'
+    seconds: 0
+  condition:
+    condition: and
+    conditions:
+    - condition: time
+      after: '00:05:30'
+    - condition: time
+      before: '20:00:00'
+    - condition: numeric_state
+      entity_id: sensor.weather_temperature
+      above: 72
+    - condition: state
+      entity_id: sensor.upstairs_mode
+      state: 'heat'
+    - condition: state
+      entity_id: garage_door.garage_overhead
+      state: 'open'
+    - condition: numeric_state
+      entity_id: sensor.upstairs_target
+      below: 72
+  action:
+    service: garage_door.close
+    entity_id: garage_door.garage_overhead
+
+
+        ######################################################
+        #####             Rain Automations              ######
+        ######################################################
+
+
+# Needs validated
+- alias: "Action - It is raining. Closing the garage."
+  trigger:
+    - platform: state
+      entity_id: sensor.weather_summary
+      to: 'Rain'
+    - platform: state
+      entity_id: sensor.weather_icon
+      to: 'rain'
+    - platform: state
+      entity_id: sensor.weather_precip
+      to: 'rain'
+  condition:
+    - condition: state
+      entity_id: garage_door.garage_overhead
+      state: 'open'
+  action:
+    service: garage_door.close
+    entity_id: garage_door.garage_overhead
+
+
+        ######################################################
+        #####        Motion Sensor Automations          ######
+        ######################################################
+
+
+# Working 6/15/16
+- alias: "Action - Motion in office. Turning on light."
+  trigger:
+    platform: state
+    entity_id: binary_sensor.office
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: light.office
+    state: 'off'
+  action:
+    service: light.turn_on
+    entity_id: light.office
+
+
+# Needs validated
+- alias: "Action - Motion not detected. Turning OFF light."
+  trigger:
+    platform: time
+    minutes: '/5'
+    seconds: 0
+  condition:
+    condition: state
+    entity_id: binary_sensor.office
+    state: 'off'
+  action:
+   service: light.turn_off
+   entity_id: light.office
+
+
+        ######################################################
+        #####          Left home Automations            ######
+        ######################################################
+
+
+# Working 6/11/16
+### Netvibes handles the text notification ###
+- alias: "Action - Everyone is away. Setting Nest to AWAY and turning OFF any lights that are on."
+  trigger:
+    platform: state
+    entity_id: group.mobile_devices
+    to: 'not_home'
+  condition:
+    - condition: state
+      entity_id: input_boolean.location_disable
+      state: 'off'
+  action:
+    service: script.turn_on
+    entity_id: script.away
+
+
+        ######################################################
+        #####          Return home Automations          ######
+        ######################################################
+
+
+# Working 6/11/16
+### Netvibes handles the text notification ###
+- alias: "Action - Someone came home. Setting Nest to HOME."
+  trigger:
+    platform: state
+    entity_id: group.mobile_devices
+    from: 'not_home'
+    to: 'home'
+  action:
+    service: script.turn_on
+    entity_id: script.home
+
+
